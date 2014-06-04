@@ -5,7 +5,8 @@ urls = (
     '/', 'index',
     '/lighton', 'lighton',
     '/lightoff', 'lightoff',
-    '/sensors', 'sensors'
+    '/temp', 'temp',
+    '/light', 'light'
 )
 
 ser = serial.Serial('/dev/ttyACM0', 9600)
@@ -16,22 +17,30 @@ class index:
         return "<h1>GET AWAY!!!</h1>"
 
 
-class lighton:
-    def GET(self):
-        ser.write('1')
-        return True
-
-
 class lightoff:
     def GET(self):
         ser.write('0')
         return False
 
 
-class sensors:
+class lighton:
     def GET(self):
-        values = ser.readline()
-        return values
+        ser.write('1')
+        return True
+
+
+class light:
+    def GET(self):
+        ser.write('4')
+        light = ser.readline()
+        return light
+
+
+class temp:
+    def GET(self):
+        ser.write('3')
+        temp = ser.readline()
+        return temp
 
 
 if __name__ == "__main__":
